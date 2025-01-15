@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { AppProvider } from '@shopify/polaris';
 import { BrowserRouter, Routes, Route } from "react-router";
 import ConnectAccount from './ConnectAccount';
@@ -7,7 +7,7 @@ import ConnectAccount from './ConnectAccount';
 
 
 const App = () => {
-  const apiKey = process.env.REACT_APP_SHOPIFY_API_KEY; // Replace with your Shopify app's API key
+  // const apiKey = process.env.REACT_APP_SHOPIFY_API_KEY; // Replace with your Shopify app's API key
   let host = new URLSearchParams(window.location.search).get("host"); // Extract host from the URL
 
   console.log({ host })
