@@ -1,74 +1,46 @@
-import { Link, AccountConnection } from '@shopify/polaris';
-import { useState, useCallback, useEffect } from 'react';
+import React, { useMemo } from 'react';
+import { AppProvider } from '@shopify/polaris';
+import { BrowserRouter, Routes, Route } from "react-router";
+import ConnectAccount from './ConnectAccount';
+// import { AppBridgeContext } from './AppBridgeContext';
+// import { createApp } from '@shopify/app-bridge';
 
-function AccountConnectionExample() {
-  const [connected, setConnected] = useState(false);
-  const [accountName, setAccountName] = useState('');
 
-  const queryParams = new URLSearchParams(window.location.search);
-  const shop = queryParams.get('shop');
+const App = () => {
+  const apiKey = process.env.REACT_APP_SHOPIFY_API_KEY; // Replace with your Shopify app's API key
+  let host = new URLSearchParams(window.location.search).get("host"); // Extract host from the URL
 
-  console.log(shop);
+  console.log({ host })
 
-  const connectShopify = useCallback(() => {
-    // Redirect to the Shopify Connect page
 
-  }, []);
+  // if (!host) {
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/data/check-shopify-connection?shop=${shop}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setConnected(data.status === 1);
-        setAccountName(data.userName);
-      });
-  }, [shop]);
+  // }
+  host = 'https://admin.shopify.com';
+  // const appBridgeConfig = {
+  //   apiKey: apiKey,
+  //   host: host, // Required for embedded apps
+  //   forceRedirect: true, // Redirects to Shopify if not inside an iframe
+  // };
 
-  const disconnectShopify = useCallback(() => {
-    // Redirect to the Shopify Connect page
-    fetch(`${process.env.REACT_APP_API_URL}/data/disconnect-shopify-account?shop=${shop}`, {
-      method: 'POST',
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === 1) {
-          setConnected(false);
-          setAccountName('');
-        }
-      });
-  }, [shop]);
 
-  const handleAction = useCallback(() => {
-    if (connected) {
-      // Disconnect the account
-      disconnectShopify();
-    } else {
-      connectShopify();
-    }
-  }, [connectShopify, connected, disconnectShopify]);
-
-  const buttonText = connected ? 'Disconnect' : 'Connect';
-  const details = connected ? 'Account connected' : 'No account connected';
-  const terms = connected ? null : (
-    <p>
-      By clicking <strong>Connect</strong>, you agree to accept Sample App's{' '}
-      <Link url="Example App">terms and conditions</Link>. You'll pay a
-      commission rate of 15% on sales made through Sample App.
-    </p>
-  );
+  // const appBridge = useMemo(() => {
+  //   return createApp({
+  //     apiKey: apiKey,
+  //     host: host,
+  //     forceRedirect: true,
+  //   });
+  // }, [apiKey, host]);
 
   return (
-    <AccountConnection
-      accountName={accountName}
-      connected={connected}
-      title="Shopify App"
-      action={{
-        content: buttonText,
-        onAction: handleAction,
-      }}
-      details={details}
-      termsOfService={terms}
-    />
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ConnectAccount />} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
+
   );
-}
-export default AccountConnectionExample;
+};
+export default App;
