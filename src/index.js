@@ -1,21 +1,21 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import { AppProvider } from '@shopify/app-bridge-react';
+import { AppProvider } from "@shopify/polaris";
 import en from "@shopify/polaris/locales/en.json";
 import "@shopify/polaris/build/esm/styles.css";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 
-const config = {
-  apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // From your .env file
-  host: new URLSearchParams(window.location.search).get('host'), // Get host from query params
-  forceRedirect: true,
-};
+// const config = {
+//   apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // From your .env file
+//   host: new URLSearchParams(window.location.search).get('host'), // Get host from query params
+//   forceRedirect: true,
+// };
 
 root.render(
-  <AppProvider config={config}>
+  <AppProvider i18n={en}>
     <App />
   </AppProvider>
 );
