@@ -8,6 +8,8 @@ function AccountConnectionExample() {
   const queryParams = new URLSearchParams(window.location.search);
   const shop = queryParams.get('shop');
 
+  console.log(shop);
+
   const connectShopify = useCallback(() => {
     // Redirect to the Shopify Connect page
 
