@@ -16,6 +16,7 @@ function ConnectAccount() {
 
     const queryParams = new URLSearchParams(window.location.search);
     const shop = queryParams.get('shop');
+    const hmac = queryParams.get('hmac');
 
     console.log({ shop });
 
@@ -31,7 +32,7 @@ function ConnectAccount() {
                 setConnected(data.status === 1);
                 setAccountName(data.userName);
             });
-    }, [shop]);
+    }, [shop, hmac]);
 
     const disconnectShopify = useCallback(() => {
         // Redirect to the Shopify Connect page
