@@ -10,14 +10,6 @@ const App = () => {
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
-
-  const config = {
-    apiKey: '51a0679be8d0a7fcd0c17b08f4d5ed42',
-    shopOrigin: new URLSearchParams(window.location.search).get('shop'),
-    forceRedirect: true,
-  };
-
-
   const LoadingSkeleton = () => (
     <div style={{ padding: '1rem' }}>
       <SkeletonDisplayText size="small" />
