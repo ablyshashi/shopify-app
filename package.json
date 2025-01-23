@@ -2,7 +2,7 @@
   "name": "my-polaris-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://nelson.local.4livedemo.com",
+  "proxy": "https://nelson.4livedemo.com",
   "dependencies": {
     "@shopify/app-bridge": "^3.7.10",
     "@shopify/app-bridge-react": "^4.1.6",
