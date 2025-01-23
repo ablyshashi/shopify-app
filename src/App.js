@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AppProvider } from '@shopify/polaris';
 import ConnectAccount from './ConnectAccount';
+import { Provider } from '@shopify/app-bridge-react';
 import en from "@shopify/polaris/locales/en.json";
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
 
@@ -11,6 +12,13 @@ const App = () => {
 
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
+
+
+  const config = {
+    apiKey: '51a0679be8d0a7fcd0c17b08f4d5ed42',
+    shopOrigin: new URLSearchParams(window.location.search).get('shop'),
+    forceRedirect: true,
+  };
 
 
   const LoadingSkeleton = () => (
@@ -60,8 +68,10 @@ const App = () => {
 
   return (
     <AppProvider i18n={en}>
-      {loading && <LoadingSkeleton />}
-      {showConnectComponent && <ConnectAccount />}
+      <Provider config={config}>
+        {loading && <LoadingSkeleton />}
+        {showConnectComponent && <ConnectAccount />}
+      </Provider>
     </AppProvider>
   );
 }; export default App;
