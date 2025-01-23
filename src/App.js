@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppProvider } from '@shopify/polaris';
 import ConnectAccount from './ConnectAccount';
-import { Provider } from '@shopify/app-bridge-react';
-import en from "@shopify/polaris/locales/en.json";
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
 
 const App = () => {
@@ -67,11 +64,10 @@ const App = () => {
   }, [shop, hmac]);
 
   return (
-    <AppProvider i18n={en}>
-      <Provider config={config}>
-        {loading && <LoadingSkeleton />}
-        {showConnectComponent && <ConnectAccount />}
-      </Provider>
-    </AppProvider>
+    <>
+      {loading && <LoadingSkeleton />}
+      {showConnectComponent && <ConnectAccount />}
+    </>
+
   );
 }; export default App;
