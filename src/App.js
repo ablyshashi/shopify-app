@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
+import { useAppBridge } from '@shopify/app-bridge-react';
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
+
+  useAppBridge();
 
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -38,7 +41,7 @@ const App = () => {
           if (data.status === 1) {
             setShowConnectComponent(true)
           } else {
-            redirectUserToNelson();
+            // redirectUserToNelson();
           }
 
         }).finally(() => {
@@ -59,6 +62,7 @@ const App = () => {
     <>
       {loading && <LoadingSkeleton />}
       {showConnectComponent && <ConnectAccount />}
+      <p>sfsafasfsaf</p>
     </>
 
   );
