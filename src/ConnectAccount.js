@@ -7,16 +7,9 @@ function ConnectAccount() {
     const [connected, setConnected] = useState(false);
     const [accountName, setAccountName] = useState('');
 
-    // const appBridge = useAppBridge();
-
-
-    // console.log({ appBridge });
-
-
 
     const queryParams = new URLSearchParams(window.location.search);
     const shop = queryParams.get('shop');
-    const hmac = queryParams.get('hmac');
 
     console.log({ shop });
 
@@ -32,7 +25,7 @@ function ConnectAccount() {
                 setConnected(data.status === 1);
                 setAccountName(data.userName);
             });
-    }, [shop, hmac]);
+    }, [shop]);
 
     const disconnectShopify = useCallback(() => {
         // Redirect to the Shopify Connect page
