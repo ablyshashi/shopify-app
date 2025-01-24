@@ -11,26 +11,14 @@ const App = () => {
 
   console.log({ shop, hmac });
 
-  if (window?.Shopify && window?.Shopify?.App && shop) {
-    const appBridgeConfig = {
-      apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // Replace with your Shopify app API key
-      shopOrigin: shop,
-      forceRedirect: true, // Redirects to login if unauthorized
-    };
-    window.app = window['Shopify'].App.create(appBridgeConfig);
+  const appBridgeConfig = {
+    apiKey: process.env.REACT_APP_SHOPIFY_API_KEY,
+    shopOrigin: shop,
+  };
 
-    getSessionToken(appBridgeConfig)
-      .then((token) => {
-        console.log('Session token:', token);
-        // Send the token to your backend for validation
-        console.log('Session token:', token);
-      })
-      .catch((error) => {
-        console.error('Failed to get session token:', error);
+  console.log(getSessionToken);
 
-      });
 
-  }
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
@@ -47,6 +35,17 @@ const App = () => {
     // const redirectUserToNelson = () => {
     //   window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
     // };
+
+    getSessionToken(appBridgeConfig)
+      .then((token) => {
+        console.log('Session token:', token);
+        // Send the token to your backend for validation
+        console.log('Session token:', token);
+      })
+      .catch((error) => {
+        console.error('Failed to get session token:', error);
+
+      });
 
     const isInstalled = () => {
       setIsLoading(true);
