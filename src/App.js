@@ -9,7 +9,7 @@ const App = () => {
 
   console.log({ shop, hmac });
 
-  if (window?.Shopify && window?.Shopify?.App) {
+  if (window?.Shopify && window?.Shopify?.App && shop) {
     const appBridgeConfig = {
       apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // Replace with your Shopify app API key
       shopOrigin: shop,
