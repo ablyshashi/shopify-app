@@ -1,7 +1,8 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
-import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
+import { SkeletonDisplayText, SkeletonBodyText, AppProvider } from '@shopify/polaris';
+import en from "@shopify/polaris/locales/en.json";
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -35,13 +36,13 @@ const App = () => {
 
       console.log("isInstalled");
 
-      fetch(`${process.env.REACT_APP_API_URL}data/check-shopify-connection`, {
+      fetch(`${process.env.REACT_APP_API_URL}data/is-shopify-installed`, {
         method: "POST",
         body: formData
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.status === 1) {
+          if (data.status == 1) {
             setShowConnectComponent(true)
           } else {
             window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
@@ -57,11 +58,11 @@ const App = () => {
   }, [shop, hmac]);
 
   return (
-    <>
+    <AppProvider i18n={en}>
       {loading && <LoadingSkeleton />}
       {showConnectComponent && <ConnectAccount />}
       <p>sfsafasfsaf</p>
-    </>
+    </AppProvider>
 
   );
 };
