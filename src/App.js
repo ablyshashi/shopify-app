@@ -31,9 +31,24 @@ const App = () => {
     </div>
   );
 
+
+
   useEffect(() => {
+
+
+    const redirectToTopLevel = (url) => {
+      if (window.top === window.self) {
+        // Not inside an iframe; redirect directly
+        window.location.href = url;
+      } else {
+        // Inside an iframe; redirect the top-level window
+        window.top.location.href = url;
+      }
+    };
+
+
     const redirectUserToNelson = () => {
-      window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
+      redirectToTopLevel(`${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`);
     };
 
     getSessionToken(appBridgeConfig)
