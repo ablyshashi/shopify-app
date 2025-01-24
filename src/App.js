@@ -28,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     if (window.top !== window.self) {      // Not inside an iframe; redirect directly
-      window.top.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
+      window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
     }
 
     const isInstalled = () => {
@@ -47,7 +47,7 @@ const App = () => {
           if (data.status === 1) {
             setShowConnectComponent(true)
           } else {
-            // redirectUserToNelson();
+            window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
           }
 
         }).finally(() => {
@@ -55,10 +55,7 @@ const App = () => {
         });;
     };
 
-    if (shop) {
-
-      // isInstalled();
-    }
+    isInstalled();
 
   }, [shop, hmac]);
 
