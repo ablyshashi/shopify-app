@@ -13,9 +13,10 @@ const App = () => {
     forceRedirect: true, // Redirects to login if unauthorized
   };
 
+  console.log(appBridgeConfig);
+
   window.app = window['Shopify'].App.create(appBridgeConfig);
-
-
+  console.log(window.app);
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
