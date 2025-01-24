@@ -7,9 +7,9 @@ const App = () => {
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
+  console.log({ shop, hmac });
 
-
-  if (!window.app) {
+  if (!window?.app && shop) {
     const appBridgeConfig = {
       apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // Replace with your Shopify app API key
       shopOrigin: shop,
@@ -17,9 +17,6 @@ const App = () => {
     };
     window.app = window['Shopify'].App.create(appBridgeConfig);
   }
-
-
-  console.log(window.app);
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
@@ -41,6 +38,8 @@ const App = () => {
       setIsLoading(true);
       const formData = new FormData();
       formData.append('shop', shop);
+
+      console.log("isInstalled");
 
       fetch(`${process.env.REACT_APP_API_URL}data/check-shopify-connection`, {
         method: "POST",
