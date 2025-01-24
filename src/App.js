@@ -32,9 +32,9 @@ const App = () => {
   );
 
   useEffect(() => {
-    // const redirectUserToNelson = () => {
-    //   window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
-    // };
+    const redirectUserToNelson = () => {
+      window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
+    };
 
     getSessionToken(appBridgeConfig)
       .then((token) => {
@@ -43,6 +43,7 @@ const App = () => {
         console.log('Session token:', token);
       })
       .catch((error) => {
+        redirectUserToNelson();
         console.error('Failed to get session token:', error);
 
       });
