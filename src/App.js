@@ -7,15 +7,18 @@ const App = () => {
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  const appBridgeConfig = {
-    apiKey: '51a0679be8d0a7fcd0c17b08f4d5ed42', // Replace with your Shopify app API key
-    shopOrigin: shop,
-    forceRedirect: true, // Redirects to login if unauthorized
-  };
 
-  console.log(appBridgeConfig);
 
-  window.app = window['Shopify'].App.create(appBridgeConfig);
+  if (!window.app) {
+    const appBridgeConfig = {
+      apiKey: process.env.REACT_APP_SHOPIFY_API_KEY, // Replace with your Shopify app API key
+      shopOrigin: shop,
+      forceRedirect: true, // Redirects to login if unauthorized
+    };
+    window.app = window['Shopify'].App.create(appBridgeConfig);
+  }
+
+
   console.log(window.app);
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
