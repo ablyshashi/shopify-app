@@ -27,10 +27,7 @@ const App = () => {
 
 
   useEffect(() => {
-    if (window.top === window.self) {      // Not inside an iframe; redirect directly
-      window.location.href = url;
-    } else {
-      // Inside an iframe; redirect the top-level window
+    if (window.top !== window.self) {      // Not inside an iframe; redirect directly
       window.top.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
     }
 
