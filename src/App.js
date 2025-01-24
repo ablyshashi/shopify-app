@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
-import { getSessionToken } from '@shopify/app-bridge-utils';
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -11,12 +10,6 @@ const App = () => {
 
   console.log({ shop, hmac });
 
-  const appBridgeConfig = {
-    apiKey: process.env.REACT_APP_SHOPIFY_API_KEY,
-    shopOrigin: shop,
-  };
-
-  console.log(getSessionToken);
 
 
   const [showConnectComponent, setShowConnectComponent] = useState(false);
@@ -34,34 +27,12 @@ const App = () => {
 
 
   useEffect(() => {
-
-
-    const redirectToTopLevel = (url) => {
-      if (window.top === window.self) {
-        // Not inside an iframe; redirect directly
-        window.location.href = url;
-      } else {
-        // Inside an iframe; redirect the top-level window
-        window.top.location.href = url;
-      }
-    };
-
-
-    const redirectUserToNelson = () => {
-      redirectToTopLevel(`${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`);
-    };
-
-    getSessionToken(appBridgeConfig)
-      .then((token) => {
-        console.log('Session token:', token);
-        // Send the token to your backend for validation
-        console.log('Session token:', token);
-      })
-      .catch((error) => {
-        redirectUserToNelson();
-        console.error('Failed to get session token:', error);
-
-      });
+    if (window.top === window.self) {      // Not inside an iframe; redirect directly
+      window.location.href = url;
+    } else {
+      // Inside an iframe; redirect the top-level window
+      window.top.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
+    }
 
     const isInstalled = () => {
       setIsLoading(true);
