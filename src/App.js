@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
+import { getSessionToken } from '@shopify/app-bridge-utils';
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -16,6 +18,18 @@ const App = () => {
       forceRedirect: true, // Redirects to login if unauthorized
     };
     window.app = window['Shopify'].App.create(appBridgeConfig);
+
+    getSessionToken(appBridgeConfig)
+      .then((token) => {
+        console.log('Session token:', token);
+        // Send the token to your backend for validation
+        console.log('Session token:', token);
+      })
+      .catch((error) => {
+        console.error('Failed to get session token:', error);
+
+      });
+
   }
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -30,9 +44,9 @@ const App = () => {
   );
 
   useEffect(() => {
-    const redirectUserToNelson = () => {
-      window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
-    };
+    // const redirectUserToNelson = () => {
+    //   window.location.href = `${process.env.REACT_APP_API_URL}/data/shopify?shop=${shop}&hmac=${hmac}`;
+    // };
 
     const isInstalled = () => {
       setIsLoading(true);
@@ -60,7 +74,7 @@ const App = () => {
 
     if (shop) {
 
-      isInstalled();
+      // isInstalled();
     }
 
   }, [shop, hmac]);
