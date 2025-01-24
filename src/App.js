@@ -58,11 +58,9 @@ const App = () => {
         });;
     };
 
-    if (hmac) {
-      redirectUserToNelson();
-    } else {
-      isInstalled();
+    if (shop) {
 
+      isInstalled();
     }
 
   }, [shop, hmac]);
