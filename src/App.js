@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
 import { SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
-import { useAppBridge } from '@shopify/app-bridge-react';
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  useAppBridge();
+  const appBridgeConfig = {
+    apiKey: '51a0679be8d0a7fcd0c17b08f4d5ed42', // Replace with your Shopify app API key
+    shopOrigin: shop,
+    forceRedirect: true, // Redirects to login if unauthorized
+  };
+
+  window.app = window['Shopify'].App.create(appBridgeConfig);
+
 
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
