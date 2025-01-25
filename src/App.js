@@ -10,7 +10,7 @@ const App = () =>  {
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  window['shashi'] = useAppBridge();
+  const shopifyAppBridge = useAppBridge();
   //const user =  await aa.user()
 
   console.log({ shop, hmac,dddd: 2 });
@@ -31,8 +31,9 @@ const App = () =>  {
 
 
 
-  useEffect(() => {
-
+  useEffect(async() => {
+    const user = await shopifyAppBridge.user();
+    console.log({user});
     const isInstalled = () => {
       setIsLoading(true);
       const formData = new FormData();
