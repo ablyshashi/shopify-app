@@ -3,13 +3,17 @@ import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
 import { SkeletonDisplayText, SkeletonBodyText, AppProvider } from '@shopify/polaris';
 import en from "@shopify/polaris/locales/en.json";
+import {useAppBridge} from '@shopify/app-bridge-react';
 
 const App = () => {
   const queryParams = new URLSearchParams(window.location.search);
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  console.log({ shop, hmac,dddd:window?.Shopify });
+  const aa = useAppBridge();
+  
+
+  console.log({ shop, hmac,dddd:aa });
 
 
 
