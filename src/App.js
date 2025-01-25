@@ -9,7 +9,7 @@ const App = () => {
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  console.log({ shop, hmac });
+  console.log({ shop, hmac,dddd:window?.Shopify });
 
 
 
