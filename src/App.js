@@ -5,15 +5,15 @@ import { SkeletonDisplayText, SkeletonBodyText, AppProvider } from '@shopify/pol
 import en from "@shopify/polaris/locales/en.json";
 import {useAppBridge} from '@shopify/app-bridge-react';
 
-const App = () => {
+const App = () =>  {
   const queryParams = new URLSearchParams(window.location.search);
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
 
-  const aa = useAppBridge();
-  
+  window['shashi'] = useAppBridge();
+  //const user =  await aa.user()
 
-  console.log({ shop, hmac,dddd:aa });
+  console.log({ shop, hmac,dddd: 2 });
 
 
 
