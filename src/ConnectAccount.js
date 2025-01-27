@@ -96,13 +96,13 @@ function ConnectAccount() {
         // Handle the response from popup
         window.addEventListener('message', (event) => {
             console.log(event.origin);
-            if (event.origin === nelsonUrl) {
+            if (event.origin.search("nelson") !== -1) {
                 popup.close();
                 checkIfConnected();
             }
         });
 
-    }, [checkIfConnected, nelsonUrl]);
+    }, [checkIfConnected, nelsonUrl, shopUrl]);
     const buttonText = connected ? 'Disconnect' : 'Connect';
     const details = connected ? 'Account connected' : 'No account connected';
     const terms = connected ? <p>

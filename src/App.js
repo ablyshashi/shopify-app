@@ -25,7 +25,7 @@ const App = () => {
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
 
     if (!shop) {
       return;
@@ -35,25 +35,10 @@ const App = () => {
       window.location.href = `${process.env.REACT_APP_API_URL}data/shopify?shop=${shop}&hmac=${hmac}`;
       return
     }
-
-
-    // const script = document.createElement('script');
-    // script.src = 'https://cdn.shopify.com/shopifycloud/app-bridge.js';
-    // script.async = true;
-    // document.head.appendChild(script);
-
-    // const meta = document.createElement('meta');
-    // meta.name = 'shopify-api-key';
-    // meta.content = process.env.REACT_APP_SHOPIFY_API_KEY;
-    // document.head.appendChild(meta);
-
-    // const user = await shopifyAppBridge.user();
-    // console.log({ user });
     const isInstalled = () => {
       setIsLoading(true);
       const formData = new FormData();
       formData.append('shop', shop);
-      console.log("isInstalled fn running");
 
       fetch(`${process.env.REACT_APP_API_URL}data/is-shopify-installed`, {
         method: "POST",
@@ -64,7 +49,6 @@ const App = () => {
           if (data.status == 1) {
             setShowConnectComponent(true)
           } else {
-            console.log('isInstalled fn fail');
             const client = createApp({
               apiKey: process.env.REACT_APP_SHOPIFY_API_KEY,
               host: new URLSearchParams(location.search).get("host"),
@@ -95,16 +79,10 @@ const App = () => {
   }, [shop, hmac]);
 
 
-  // const script = document.createElement('script');
-  // script.src = 'https://cdn.shopify.com/shopifycloud/app-bridge.js';
-  // script.async = true;
-  // document.head.appendChild(script);
-
   return (
     <AppProvider i18n={en}>
       {loading && <LoadingSkeleton />}
       {showConnectComponent && <ConnectAccount />}
-      <p>sfsafasfsaf</p>
     </AppProvider>
 
   );
