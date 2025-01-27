@@ -1,5 +1,17 @@
 import { Link, AccountConnection, SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
 import { useState, useCallback, useEffect } from 'react';
+
+
+export const LoadingSkeleton = () => (
+    <div style={{ padding: '1rem' }}>
+        <SkeletonDisplayText size="small" />
+        <div style={{ marginTop: '1rem' }}>
+            <SkeletonBodyText lines={2} />
+        </div>
+    </div>
+);
+
+
 function ConnectAccount() {
     const [connected, setConnected] = useState(false);
     const [accountName, setAccountName] = useState('');
@@ -76,7 +88,7 @@ function ConnectAccount() {
         ].join(',');
 
         const popup = window.open(
-            `${nelsonUrl}/guest-user/login-shopify-form?shop=${shopUrl}`,
+            `${nelsonUrl}guest-user/login-shopify-form`,
             'Popup',
             features
         );
@@ -89,7 +101,7 @@ function ConnectAccount() {
             }
         });
 
-    }, [checkIfConnected, nelsonUrl, shopUrl]);
+    }, [checkIfConnected, nelsonUrl]);
     const buttonText = connected ? 'Disconnect' : 'Connect';
     const details = connected ? 'Account connected' : 'No account connected';
     const terms = connected ? <p>
@@ -101,14 +113,7 @@ function ConnectAccount() {
         </p>
     );
 
-    const LoadingSkeleton = () => (
-        <div style={{ padding: '1rem' }}>
-            <SkeletonDisplayText size="small" />
-            <div style={{ marginTop: '1rem' }}>
-                <SkeletonBodyText lines={2} />
-            </div>
-        </div>
-    );
+
 
     return (
         <>
