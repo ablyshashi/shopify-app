@@ -88,13 +88,14 @@ function ConnectAccount() {
         ].join(',');
 
         const popup = window.open(
-            `${nelsonUrl}guest-user/login-shopify-form`,
+            `${nelsonUrl}guest-user/login-shopify-form?shop=${shopUrl}`,
             'Popup',
             features
         );
 
         // Handle the response from popup
         window.addEventListener('message', (event) => {
+            console.log(event.origin);
             if (event.origin === nelsonUrl) {
                 popup.close();
                 checkIfConnected();
