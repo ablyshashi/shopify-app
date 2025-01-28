@@ -1,9 +1,12 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import ConnectAccount from './ConnectAccount';
-import { SkeletonDisplayText, SkeletonBodyText, AppProvider } from '@shopify/polaris';
+import {
+  Page,
+  Layout,
+  BlockStack, AppProvider
+} from '@shopify/polaris';
 import en from "@shopify/polaris/locales/en.json";
-import { useAppBridge } from '@shopify/app-bridge-react';
 import { createApp } from '@shopify/app-bridge';
 import { Redirect } from '@shopify/app-bridge/actions';
 import { LoadingSkeleton } from './ConnectAccount';
@@ -14,13 +17,6 @@ const App = () => {
   const shop = queryParams.get('shop');
   const hmac = queryParams.get('hmac');
   const embedded = queryParams.get('embedded');
-
-  // const shopifyAppBridge = useAppBridge();
-  // //const user =  await aa.user()
-
-  // console.log({ shop, hmac, dddd: 2 });
-
-
 
   const [showConnectComponent, setShowConnectComponent] = useState(false);
   const [loading, setIsLoading] = useState(false);
@@ -81,8 +77,16 @@ const App = () => {
 
   return (
     <AppProvider i18n={en}>
-      {loading && <LoadingSkeleton />}
-      {showConnectComponent && <ConnectAccount />}
+      <Page>
+        <BlockStack gap="500">
+          <Layout>
+            <Layout.Section>
+              {loading && <LoadingSkeleton />}
+              {showConnectComponent && <ConnectAccount />}
+            </Layout.Section>
+          </Layout>
+        </BlockStack>
+      </Page>
     </AppProvider>
 
   );
