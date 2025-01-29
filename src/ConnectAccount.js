@@ -1,4 +1,4 @@
-import { Link, AccountConnection, SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
+import { AccountConnection, SkeletonDisplayText, SkeletonBodyText } from '@shopify/polaris';
 import { useState, useCallback, useEffect } from 'react';
 
 
@@ -95,7 +95,6 @@ function ConnectAccount() {
 
         // Handle the response from popup
         window.addEventListener('message', (event) => {
-            console.log(event.origin);
             if (event.origin.search("nelson") !== -1) {
                 popup.close();
                 checkIfConnected();
@@ -106,11 +105,11 @@ function ConnectAccount() {
     const buttonText = connected ? 'Disconnect' : 'Connect';
     const details = connected ? 'Account connected' : 'No account connected';
     const terms = connected ? <p>
-        Now you can sync your orders and products in <Link url="https://www.upcoming.store/guest-user/login-form">Upcoming store</Link>
+        Now you can sync your orders and products in <a target="_blank" href="https://www.upcoming.store/guest-user/login-form" rel="noreferrer">Upcoming store</a>
     </p> : (
         <p>
             By clicking <strong>Connect</strong>, you agree to accept Upcoming App's{' '}
-            <Link url="https://www.upcoming.store/terms-of-use">terms and conditions</Link>. You must have an seller account to use this <Link url="https://www.upcoming.store/">Upcoming store</Link>.
+            <a target="_blank" href="https://www.upcoming.store/terms-of-use" rel="noreferrer">terms and conditions</a>. You must have an seller account to use this <a target="_blank" rel="noreferrer" href="https://www.upcoming.store/">Upcoming store</a>.
         </p>
     );
 
