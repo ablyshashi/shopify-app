@@ -95,7 +95,7 @@ function ConnectAccount() {
 
         // Handle the response from popup
         window.addEventListener('message', (event) => {
-            if (event.origin.search("nelson") !== -1) {
+            if (event.origin.search("nelson") !== -1 || event.origin.search("upcoming") !== -1) {
                 popup.close();
                 checkIfConnected();
             }
